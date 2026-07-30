@@ -127,7 +127,7 @@ export const footerLinks = {
   support: [
     { title: 'Corporate Profile', link: '/company-profile' },
     { title: 'Managing Director Profile', link: '/md-profile' },
-    { title: 'Privacy Policy', link: '#' }
+    { title: 'Privacy Policy', link: '/privacy-policy' }
   ],
   // groupWebsite: ['northropindia.com', 'northropglobal.com', 'northropventures.com'],
 }

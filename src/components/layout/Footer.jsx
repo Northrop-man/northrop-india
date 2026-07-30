@@ -111,7 +111,10 @@ function Footer() {
         <div className="mt-10 flex flex-col md:flex-row items-center justify-between border-t border-gray-700 py-4 text-[12px] text-gray-400 font-sans gap-4">
           <div className="flex flex-col gap-2">
             <p className="m-0 text-[12px] text-gray-400">
-              © 2026 Northrop Management Private Limited. Incorporated 2026. All Rights Reserved.
+              © 2026 Northrop Management Private Limited All Rights Reserved.
+            </p>
+            <p className="m-0 text-[12px] text-gray-400">
+              Established in 2022, the firm was incorporated as a private limited company in 2026 under its present time.
             </p>
           </div>
 

@@ -152,7 +152,11 @@ const Contact = () => {
                 <div>
                   <div className="text-[11px] font-[700] tracking-[1.5px] uppercase text-gray-400 mb-[4px]">Headquarters</div>
                   <div className="text-[18px] font-[400] text-[#001f3f] leading-[1.5]">
-                    GRAPHIX Tower 2,Block A,Industrial Area,Sector 62,Noida,Uttar Pradesh 201301,<br />India
+                    GRAPHIX Tower 2, Block A, Industrial Area, Sector 62, Noida, Uttar Pradesh 201301,<br />India
+                  </div>
+                  <div className="text-[11px] font-[700] tracking-[1.5px] uppercase text-gray-400 mb-[4px] mt-[10px]">We are also available at</div>
+                  <div className="text-[18px] font-[400] text-[#001f3f] leading-[1.5]">
+                    Lower Parel, South Mumbai, Mumbai, Maharashtra 400013,<br />India
                   </div>
                 </div>
               </div>
