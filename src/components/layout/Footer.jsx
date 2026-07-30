@@ -114,7 +114,7 @@ function Footer() {
               © 2026 Northrop Management Private Limited All Rights Reserved.
             </p>
             <p className="m-0 text-[12px] text-gray-400">
-              Established in 2022, the firm was incorporated as a private limited company in 2026 under its present time.
+              Established in 2022, the firm was incorporated as a private limited company in 2026 under its present name.
             </p>
           </div>
 
