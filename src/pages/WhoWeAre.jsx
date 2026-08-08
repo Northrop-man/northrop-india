@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useScroll, useInView , motion, useTransform, AnimatePresence, useMotionValue, animate} from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import {
   Globe,
@@ -258,22 +258,36 @@ const Character = ({ char, progress, range, baseColor, activeColor }) => {
   );
 };
 
+
+
 const AnimatedText = ({
   text,
   delay = 0,
   baseColor = "rgba(255,255,255,0)",
   activeColor = "#ffffff",
-  offset = ["start 80%", "end center"],
-  targetRef,
 }) => {
   const containerRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: targetRef || containerRef,
-    offset: offset,
-  });
+  // 1. Detect when the component enters the viewport
+  // once: true ensures it only triggers typing the first time it is seen
+  const isInView = useInView(containerRef, { once: true, amount: 0.5 });
 
+  const progressValue = useMotionValue(0);
   const letters = text.split("");
+
+  // 2. Trigger the typing animation ONLY when isInView becomes true
+  useEffect(() => {
+    if (!isInView) return; // Wait until it's visible
+
+    const controls = animate(progressValue, letters.length, {
+      type: "tween",
+      duration: letters.length * 0.05, // Speed per character
+      delay: delay,
+      ease: "linear",
+    });
+    return controls.stop;
+  }, [isInView, letters.length, delay, progressValue]);
+
   return (
     <span
       ref={containerRef}
@@ -281,14 +295,16 @@ const AnimatedText = ({
       style={{ whiteSpace: "pre-wrap" }}
     >
       {letters.map((char, index) => {
-        const start = index / letters.length;
-        const end = start + (1 / letters.length);
+        const isPassed = useTransform(progressValue, (latest) =>
+          latest >= index ? 1 : 0
+        );
+
         return (
           <Character
             key={index}
             char={char}
-            progress={scrollYProgress}
-            range={[start, end]}
+            progress={isPassed}
+            range={[0.5, 1]}
             baseColor={baseColor}
             activeColor={activeColor}
           />
@@ -297,6 +313,8 @@ const AnimatedText = ({
     </span>
   );
 };
+
+
 
 export default function WhoWeAre() {
   const heroRef = useRef(null);
@@ -319,7 +337,7 @@ export default function WhoWeAre() {
       </Helmet>
 
       {/* Hero Section: The Founder's Mandate */}
-      <section ref={heroRef} className="relative w-full min-h-[80vh] flex items-center pt-[80px] pb-[80px] overflow-hidden">
+      <section ref={heroRef} className="relative h-screen w-full min-h-[80vh] flex items-center pt-[80px] pb-[80px] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             alt="Ashish Chaudhary, Founder & Managing Director, Northrop Management Private Limited"
@@ -332,7 +350,7 @@ export default function WhoWeAre() {
 
         <div className="relative z-10 max-w-[1440px] mx-auto px-[32px] md:px-[40px] w-full mt-10">
           <div className="w-full max-w-[1280px]">
-            <div className="space-y-[48px] md:space-y-[64px] text-[36px] md:text-[36px] lg:text-[48px] xl:text-[64px] font-playfair font-[300] leading-[1.1]  text-white font-bold" >
+            <div className="space-y-[48px] md:space-y-[64px] text-[28px] md:text-[32px] lg:text-[35px] xl:text-[40px] font-playfair leading-[1.1]  text-white font-bold md:w-[70vw] text-justify" >
               <span>
                 <AnimatedText
                   text="We are a management consulting firm built on a single operating conviction: that every enterprise we touch must become the benchmark not approach it, not aspire to it, but become it. We do not believe in second. We do not engineer improvement. We engineer dominance."
@@ -520,7 +538,7 @@ export default function WhoWeAre() {
             <span className="text-[#C4973B] font-playfair italic text-[22px] mb-[24px] block font-semibold">
               Institutional Horizon
             </span>
-            <div className="text-[36px] md:text-[48px] lg:text-[64px] font-playfair font-[300] leading-[1.2] text-white font-bold">
+            <div className="space-y-[48px] md:space-y-[64px] text-[28px] md:text-[32px] lg:text-[35px] xl:text-[40px] font-playfair leading-[1.1]  text-white font-bold md:w-[70vw] text-justify">
               <AnimatedText
                 text="Our vision is to see Indian enterprises lead the Fortune 500, not follow it.We identify and eliminate the structural constraints governance gaps, capital inefficiencies, and execution barriers that prevent companies from reaching global scale."
                 delay={0}

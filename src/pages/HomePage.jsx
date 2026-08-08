@@ -39,8 +39,8 @@ function HomePage() {
   return (
     <main className="min-h-screen bg-white font-sans antialiased text-[#1A1714]">
       <Helmet>
-        <title>Northrop India | Knowledge Centre & Insights</title>
-        <meta name="description" content="Northrop India provides institutional-grade financial reporting, risk management, and transaction advisory services." />
+        <title>Northrop Management Private Limited | Management Consulting & Financial Advisory</title>
+        <meta name="description" content="Northrop Management is a leading provider of financial reporting, corporate governance, forensic, due diligence, and management consulting services across India." />
       </Helmet>
 
 
@@ -63,7 +63,7 @@ function HomePage() {
       {/* Optional Hero Video */}
       <HeroVideo />
 
-      <HomeHeroV3 />
+      {/* <HomeHeroV3 /> */}
       
       <BrandMarquee />
 
